@@ -1,11 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-// bring in the variety of endpoints that has ben created in the controllers path
-const { signup, signin } = require("../controllers/authcontroller");
+const { signup, signin } = require("../controllers/authController");
+const {
+  signupValidationRules,
+  validate,
+  signinValidationRules,
+} = require("../validators/authValidators");
 
-// this shows that after the endpoint has been reached, the second signup triggers the signup functionality you already created
-router.post("/signup", signup); // "www.dagcoin.com/users/API/signup"
-router.post("/signin", signin); // "www.dagcoin.com/users/API/signin"
+router.post("/signup", signupValidationRules, validate, signup);
+router.post("/signin", signinValidationRules, validate, signin);
 
 module.exports = router;
